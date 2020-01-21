@@ -16,6 +16,7 @@ type Profile struct {
 	Name                   string `json:"name"`
 	TwoFactorAuthActivated bool   `json:"two_factor_auth_activated"`
 	Membername             string `json:"membername"`
+        MentionName            string `json:"mention_name"`
 }
 
 func (ch *Clubhouse) GetMember(memberID int64) (Member, error) {
