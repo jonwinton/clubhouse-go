@@ -10,15 +10,16 @@ import (
 //Required fields are:
 // CreateEpic.Name
 type CreateEpic struct {
-	CreatedAt   time.Time `json:"created_at,omitempty"`
-	Deadline    time.Time `json:"deadline,omitempty"`
-	Description string    `json:"description,omitempty"`
-	ExternalID  string    `json:"external_id,omitempty"`
-	FollowerIds []string  `json:"follower_ids,omitempty"`
-	Name        string    `json:"name"`
-	OwnerIds    []string  `json:"owner_ids,omitempty"`
-	State       string    `json:"state,omitempty"`
-	UpdatedAt   time.Time `json:"updated_at,omitempty"`
+	CreatedAt   time.Time     `json:"created_at,omitempty"`
+	Deadline    time.Time     `json:"deadline,omitempty"`
+	Description string        `json:"description,omitempty"`
+	ExternalID  string        `json:"external_id,omitempty"`
+	FollowerIds []string      `json:"follower_ids,omitempty"`
+	Labels      []CreateLabel `json:"labels"`
+	Name        string        `json:"name"`
+	OwnerIds    []string      `json:"owner_ids,omitempty"`
+	State       string        `json:"state,omitempty"`
+	UpdatedAt   time.Time     `json:"updated_at,omitempty"`
 }
 
 //An Epic is a collection of stories that together might make up a release, a milestone, or some other large initiative that your organization is working on.
