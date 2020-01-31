@@ -15,6 +15,7 @@ type CreateProject struct {
 	FollowerIds  []string  `json:"follower_ids,omitempty"`
 	Name         string    `json:"name"`
 	UpdatedAt    time.Time `json:"updated_at,omitempty"`
+	TeamId       int64     `json:"team_id,omitempty"`
 }
 
 type Project struct {
