@@ -7,14 +7,14 @@ import (
 )
 
 type CreateProject struct {
-	Abbreviation string    `json:"abbreviation"`
-	Color        string    `json:"color"`
-	CreatedAt    time.Time `json:"created_at"`
-	Description  string    `json:"description"`
-	ExternalID   string    `json:"external_id"`
-	FollowerIds  []string  `json:"follower_ids"`
+	Abbreviation string    `json:"abbreviation,omitempty"`
+	Color        string    `json:"color,omitempty"`
+	CreatedAt    time.Time `json:"created_at,omitempty"`
+	Description  string    `json:"description,omitempty"`
+	ExternalID   string    `json:"external_id,omitempty"`
+	FollowerIds  []string  `json:"follower_ids,omitempty"`
 	Name         string    `json:"name"`
-	UpdatedAt    time.Time `json:"updated_at"`
+	UpdatedAt    time.Time `json:"updated_at,omitempty"`
 }
 
 type Project struct {
