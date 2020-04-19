@@ -75,6 +75,8 @@ type UpdateStory struct {
 }
 
 type SearchStory struct {
+	Name               string    `json:"name,omitempty"`
+	ID                 int64     `json:"id,omitempty"`
 	Archived           bool      `json:"archived,omitempty"`
 	CreatedAtEnd       time.Time `json:"created_at_end,omitempty"`
 	CreatedAtStart     time.Time `json:"created_at_start,omitempty"`
@@ -93,6 +95,17 @@ type SearchStory struct {
 	UpdatedAtStart     time.Time `json:"updated_at_start,omitempty"`
 	WorkflowStateID    int64     `json:"workflow_state_id,omitempty"`
 	WorkflowStateTypes []string  `json:"workflow_state_types,omitempty"`
+}
+
+type StorySearchResults struct {
+	Data  []SearchStory `json:"data,omitempty"`
+	Next  string        `json:"next,omitempty"`
+	Total int           `json:"total,omitempty"`
+}
+
+type SearchRequest struct {
+	PageSize int    `json:"page_size"`
+	Query    string `json:"query"`
 }
 
 func (ch *Clubhouse) CreateMultipleStories(newStories []CreateStory) ([]Story, error) {
@@ -154,4 +167,16 @@ func (ch *Clubhouse) UpdateStory(updatedStory UpdateStory, storyID int64) (Story
 
 func (ch *Clubhouse) DeleteStory(storyID int64) error {
 	return ch.deleteResource(fmt.Sprintf("%s/%d", "stories", storyID))
+}
+
+func (ch *Clubhouse) SearchStories(search SearchRequest) (StorySearchResults, error) {
+	jsonStr, _ := json.Marshal(search)
+	body, err := ch.searchResources("search/stories", jsonStr)
+	if err != nil {
+		return StorySearchResults{}, err
+	}
+
+	stories := StorySearchResults{}
+	json.Unmarshal(body, &stories)
+	return stories, nil
 }

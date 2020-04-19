@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-const apiURL string = "https://api.clubhouse.io/api/v2/"
+const apiURL string = "https://api.clubhouse.io/api/v3/"
 
 // Clubhouse is a struct containing the token, and the http.Client used for sending the data to the clubhouse API.
 type Clubhouse struct {
@@ -114,5 +114,23 @@ func (ch *Clubhouse) createObject(resource string, jsonStr []byte) ([]byte, erro
 		return []byte{}, fmt.Errorf("API Returned HTTP Status Code of %d", resp.StatusCode)
 	}
 
+	return ioutil.ReadAll(resp.Body)
+}
+
+func (ch *Clubhouse) searchResources(resource string, jsonStr []byte) ([]byte, error) {
+	req, err := http.NewRequest("GET", ch.getURL(resource), bytes.NewBuffer(jsonStr))
+	if err != nil {
+		return []byte{}, err
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := ch.Client.Do(req)
+	if err != nil {
+		return []byte{}, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		return []byte{}, fmt.Errorf("API Returned HTTP Status Code of %d", resp.StatusCode)
+	}
 	return ioutil.ReadAll(resp.Body)
 }
