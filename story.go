@@ -31,6 +31,7 @@ type CreateStory struct {
 
 type Story struct {
 	Archived        bool        `json:"archived"`
+	AppURL          string      `json:"app_url"`
 	Comments        []Comment   `json:"comments"`
 	CreatedAt       string      `json:"created_at"`
 	Deadline        string      `json:"deadline"`
@@ -77,6 +78,7 @@ type UpdateStory struct {
 type SearchStory struct {
 	Name               string    `json:"name,omitempty"`
 	ID                 int64     `json:"id,omitempty"`
+	AppURL             string    `json:"app_url"`
 	Archived           bool      `json:"archived,omitempty"`
 	CreatedAtEnd       time.Time `json:"created_at_end,omitempty"`
 	CreatedAtStart     time.Time `json:"created_at_start,omitempty"`
